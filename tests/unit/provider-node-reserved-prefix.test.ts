@@ -217,8 +217,10 @@ test("shared set size includes live REGISTRY and retired Designer + Felo + Qwen 
   // CodeBuddy International (#15173) adds id "codebuddy-intl" plus alias "cbai" (429 -> 431).
   // Measured on the merged tree: RESERVED_PROVIDER_PREFIXES.size = 431.
   // The current catalog removes the Free provider id and oc alias (432 -> 430).
-  // MegaBrain registers id "megabrain" and alias "mb" — two more (432 -> 434).
-  assert.equal(RESERVED_PREFIX_COUNT, 434);
+  // ainetcafe (#13862) registers id "ainetcafe" with the same alias — one more (432 -> 433).
+  // MegaBrain registers id "megabrain" and alias "mb" — two more (433 -> 435).
+  assert.equal(RESERVED_PREFIX_COUNT, 435);
+  assert.equal(RESERVED_PROVIDER_PREFIXES.has("ainetcafe"), true);
 });
 
 test("notrack-web registry id and alias stay reserved", () => {
