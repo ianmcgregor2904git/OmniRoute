@@ -353,6 +353,22 @@ export function isGrokContentRefusal(errorText: string): boolean {
   return /\bi can['’]t help with that request\b/i.test(String(errorText || ""));
 }
 
+/**
+ * MegaBrain serves Claude, GPT and Gemini only from its Pro plan up, and refuses them on
+ * a lower plan with `403 plan_tier_required` ("Claude, GPT and Gemini come with Pro and
+ * above…"). That refuses the model, not the account: the same token keeps serving GLM,
+ * Kimi and the rest of the plan's models. The generic 403 → FORBIDDEN would ban the only
+ * MegaBrain connection on a Free account's first Claude request.
+ */
+export function isMegabrainProvider(provider?: string | null): boolean {
+  const id = String(provider || "").toLowerCase();
+  return id === "megabrain" || id === "mb";
+}
+
+export function isMegabrainPlanTierRefusal(errorText: string): boolean {
+  return /\bplan_tier_required\b|\bcome with pro and above\b/i.test(String(errorText || ""));
+}
+
 function responseBodyToString(responseBody: unknown): string {
   if (typeof responseBody === "string") return responseBody;
   if (responseBody !== null && typeof responseBody === "object") {
@@ -528,6 +544,11 @@ export function classifyProviderError(
     // Must be checked BEFORE the generic 403 → FORBIDDEN fall-through, which bans
     // the connection permanently.
     return PROVIDER_ERROR_TYPES.REQUEST_REJECTED;
+  }
+  if (statusCode === 403 && isMegabrainProvider(provider) && isMegabrainPlanTierRefusal(bodyStr)) {
+    // A model above the account's plan — see isMegabrainPlanTierRefusal. MODEL_NOT_FOUND
+    // locks only that model on this connection; must precede the generic 403 → FORBIDDEN.
+    return PROVIDER_ERROR_TYPES.MODEL_NOT_FOUND;
   }
   if (statusCode === 403) {
     // Cloud Code / Antigravity (Gemini Code Assist) 403s are almost always a
