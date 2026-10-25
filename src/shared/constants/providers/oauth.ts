@@ -246,6 +246,18 @@ export const OAUTH_PROVIDERS = {
     authHint:
       "Sign in with your Kilo Code account (device-code OAuth), or paste a direct API key from app.kilo.ai → Settings → API Keys. Multiple API keys are supported and rotated automatically — add each as a separate connection. Without any connection, free anonymous models are available via the anonymousFallback.",
   },
+  megabrain: {
+    id: "megabrain",
+    serviceKinds: ["llm"],
+    alias: "mb",
+    name: "MegaBrain",
+    icon: "psychology",
+    color: "#6D5DF6",
+    textIcon: "MB",
+    website: "https://getmegabrain.com",
+    authHint:
+      "Sign in with your MegaBrain account (device code), or paste an mb-v1-… MegaBrain API key (add each key as a separate connection to rotate them). On a paid plan, MegaBrain's own models (Auto, GLM, Kimi, MiniMax, Grok, DeepSeek, Qwen) run on the plan's session and weekly limits; Claude, GPT and Gemini need Pro or above and are paid from the account's credits. Address models as mb/<model> or megabrain/<model>.",
+  },
   cline: {
     id: "cline",
     serviceKinds: ["llm"],

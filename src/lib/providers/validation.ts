@@ -111,6 +111,7 @@ import { validateAiHordeProvider } from "./validation/aihorde";
 import { validateDifyProvider } from "./validation/dify";
 import { validateZyloApiProvider } from "./validation/zylo";
 import { validateInceptionProvider } from "./validation/inception";
+import { validateMegabrainProvider } from "./validation/megabrain";
 import { validateAdobeFireflyProvider } from "./validation/adobeFirefly";
 import {
   validateV0VercelProvider,
@@ -270,6 +271,9 @@ export async function validateProviderApiKey({
     // Inception Labs serves GET /v1/models without authentication (200 for any key), so the
     // generic OpenAI-like probe greened bogus keys. Probe the authenticated chat route instead.
     inception: validateInceptionProvider,
+    // MegaBrain's /api/openrouter/models is public too; its validator probes the
+    // authenticated /api/profile/limits instead.
+    megabrain: validateMegabrainProvider,
     deepgram: validateDeepgramProvider,
     assemblyai: validateAssemblyAIProvider,
     "rev-ai": validateRevAiProvider,

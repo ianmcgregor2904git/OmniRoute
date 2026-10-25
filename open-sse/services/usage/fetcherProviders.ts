@@ -106,6 +106,9 @@ export const USAGE_FETCHER_PROVIDERS = [
   // AgentRouter (New-API) console balance (GET /api/user/self)
   "agentrouter",
   "kilocode",
+  // MegaBrain plan session + weekly limits (GET /api/profile/limits)
+  "megabrain",
+  "mb",
   // StepFun account balance (GET /v1/accounts; base URL override selects
   // China vs international platform, mirroring the chat path)
   "stepfun",
