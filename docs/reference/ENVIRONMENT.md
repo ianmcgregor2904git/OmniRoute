@@ -1176,6 +1176,16 @@ Personal USD balance and Kilo Pass usage lookup for the Kilo Code provider. Opti
 
 ---
 
+## MegaBrain Usage Limits
+
+The plan's 5-hour session and weekly limits for the MegaBrain provider's Provider Limits card. Optional — the default points at the public MegaBrain API; override only for a relay/test fixture. Authentication uses the connection's OAuth token or its `mb-v1` API key.
+
+| Variable            | Default                        | Source File                            | Description                                                      |
+| ------------------- | ------------------------------ | -------------------------------------- | ---------------------------------------------------------------- |
+| `MEGABRAIN_API_URL` | `https://api.getmegabrain.com` | `open-sse/services/usage/megabrain.ts` | Base URL used to fetch the MegaBrain plan's usage limits.         |
+
+---
+
 ## Adobe Firefly Web Provider (Unofficial/Experimental)
 
 Browser-driven session refresh for the Adobe Firefly web provider
